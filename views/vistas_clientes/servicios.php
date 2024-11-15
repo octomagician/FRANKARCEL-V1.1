@@ -210,11 +210,11 @@ include '../../class/database.php';
                                     $consulta = "call roles_usuario('$user');";
                                     $roles = $conexion->seleccionar($consulta);
 
-                                    if ($roles) 
+                                    if ($roles)
                                     {
-                                        foreach ($roles as $rol) 
+                                        foreach ($roles as $rol)
                                         {
-                                            switch ($rol->rol) 
+                                            switch ($rol->rol)
                                             {
                                                 case 'Administrador':
                                                     echo '<li><a class="dropdown-item" href="../administrador.php">Administrador</a></li>';
@@ -229,10 +229,11 @@ include '../../class/database.php';
                                                     echo '<li><a class="dropdown-item" href="./mi_cuenta.php">Mi cuenta</a></li>';
                                                     echo '<li><a class="dropdown-item" href="./notificaciones.php">Notificaciones</a></li>';
                                                     break;
+                                                default: break;
                                             }
                                         }
-                                    } 
-                                    else 
+                                    }
+                                    else
                                     {
                                         echo '<li><a class="dropdown-item" href="#">No se encontraron roles</a></li>';
                                     }

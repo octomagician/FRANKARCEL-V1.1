@@ -1,4 +1,5 @@
 <?php
+define('TD_CLOSE', '</td>');
 session_start();
 
 $databasePath = realpath(dirname(__FILE__) . '/../../class/database.php');
@@ -253,11 +254,11 @@ if (!$cliente)
                                     $consulta = "call roles_usuario('$user');";
                                     $roles = $conexion->seleccionar($consulta);
 
-                                    if ($roles) 
+                                    if ($roles)
                                     {
-                                        foreach ($roles as $rol) 
+                                        foreach ($roles as $rol)
                                         {
-                                            switch ($rol->rol) 
+                                            switch ($rol->rol)
                                             {
                                                 case 'Administrador':
                                                     echo '<li><a class="dropdown-item" href="../administrador.php">Administrador</a></li>';
@@ -272,10 +273,11 @@ if (!$cliente)
                                                     echo '<li><a class="dropdown-item" href="./mi_cuenta.php">Mi cuenta</a></li>';
                                                     echo '<li><a class="dropdown-item" href="./notificaciones.php">Notificaciones</a></li>';
                                                     break;
+                                                default: break;
                                             }
                                         }
-                                    } 
-                                    else 
+                                    }
+                                    else
                                     {
                                         echo '<li><a class="dropdown-item" href="#">No roles found</a></li>';
                                     }
@@ -317,28 +319,27 @@ if (!$cliente)
                     $consulta = "call historial_pedidos('$user')";
                     $compras = $conexion->seleccionar($consulta);
 
-                    foreach ($compras as $compra)
-                    {
+                    foreach ($compras as $compra) {
                         echo '<tr>';
-                            echo '<td>' . htmlspecialchars($compra->nv) . '</td>';
-                            
-                            $consulta = "call buscar_productos_venta($compra->nv)";
-                            $productos = $conexion->seleccionar($consulta);
-
-                            echo '<td>';
-                                echo '<ul>';
-                                foreach ($productos as $prod)
-                                {
-                                    echo '<li style="list-style-type: none;">' . htmlspecialchars($prod->producto) . '</li>';
-                                }
-                                echo '</ul>';
-                            echo '</td>';
-
-                            echo '<td>' . htmlspecialchars($compra->tv) . '</td>';
-                            echo '<td>$' . htmlspecialchars($compra->precio) . '</td>';
+                        
+                        echo '<td>' . htmlspecialchars($compra->nv) . TD_CLOSE;
+                    
+                        $consulta = "call buscar_productos_venta($compra->nv)";
+                        $productos = $conexion->seleccionar($consulta);
+                    
+                        echo '<td>';
+                        echo '<ul>';
+                        foreach ($productos as $prod) {
+                            echo '<li style="list-style-type: none;">' . htmlspecialchars($prod->producto) . '</li>';
+                        }
+                        echo '</ul>';
+                        echo TD_CLOSE;
+                    
+                        echo '<td>' . htmlspecialchars($compra->tv) . TD_CLOSE;
+                        echo '<td>$' . htmlspecialchars($compra->precio) . TD_CLOSE;
                         echo '</tr>';
                     }
-                ?>
+                    ?>
             </tbody>
         </table>
     </div>
